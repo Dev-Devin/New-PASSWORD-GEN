@@ -1,6 +1,5 @@
 // Assignment code here
 
-
 randomFunc = {
   lower: () => {
     return String.fromCharCode(Math.floor(Math.random() * 26) + 97);
@@ -14,24 +13,34 @@ randomFunc = {
   symbol: () => {
     var symbols = "!@#$%^&*(){}[]=<>/,.";
     return symbols[Math.floor(Math.random() * symbols.length)];
-  }
-}
+  },
+};
 
-generatePasswordWithCriteria = (passwordLength, hasLowercase, hasUppercase, hasNumeric, hasSpecial) => {
+generatePasswordWithCriteria = (
+  passwordLength,
+  hasLowercase,
+  hasUppercase,
+  hasNumeric,
+  hasSpecial
+) => {
   var password = ""; // Empty string that will store password
   var typesCount = hasLowercase + hasUppercase + hasNumeric + hasSpecial;
-  var typesArr = [{
-      lower: hasLowercase
-    }, {
-      upper: hasUppercase
-    }, {
-      number: hasNumeric
-    }, {
-      symbol: hasSpecial
-    }]
-    .filter(item => Object.values(item)[0]);
+  var typesArr = [
+    {
+      lower: hasLowercase,
+    },
+    {
+      upper: hasUppercase,
+    },
+    {
+      number: hasNumeric,
+    },
+    {
+      symbol: hasSpecial,
+    },
+  ].filter((item) => Object.values(item)[0]);
   for (var i = 0; i < passwordLength; i += typesCount) {
-    typesArr.forEach(type => {
+    typesArr.forEach((type) => {
       var funcName = Object.keys(type)[0];
       password += randomFunc[funcName]();
     });
@@ -39,12 +48,14 @@ generatePasswordWithCriteria = (passwordLength, hasLowercase, hasUppercase, hasN
 
   var finalPassword = password.slice(0, passwordLength);
   return finalPassword;
-}
+};
 
 // Generate Password
 generatePassword = () => {
   // Shows pop up to ask for password requirements
-  var passwordLength = prompt("How many characters would you like your password to contain?");
+  var passwordLength = prompt(
+    "How many characters would you like your password to contain?"
+  );
   var passwordLength = parseInt(passwordLength);
 
   // Check if password length is between 8 and 128 characters
@@ -53,9 +64,12 @@ generatePassword = () => {
     return;
   }
 
-
-  var hasLowercase = confirm("Click OK to confirm including lowercase characters");
-  var hasUppercase = confirm("Click OK to confirm including uppercase characters");
+  var hasLowercase = confirm(
+    "Click OK to confirm including lowercase characters"
+  );
+  var hasUppercase = confirm(
+    "Click OK to confirm including uppercase characters"
+  );
   var hasNumeric = confirm("Click OK to confirm including numeric characters");
   var hasSpecial = confirm("Click OK to confirm including special characters");
 
@@ -66,8 +80,14 @@ generatePassword = () => {
   }
 
   //Generate password with given criteria
-  return generatePasswordWithCriteria(passwordLength, hasLowercase, hasUppercase, hasNumeric, hasSpecial);
-}
+  return generatePasswordWithCriteria(
+    passwordLength,
+    hasLowercase,
+    hasUppercase,
+    hasNumeric,
+    hasSpecial
+  );
+};
 
 // Get references to the #generate element
 var generateBtn = document.querySelector("#generate");
